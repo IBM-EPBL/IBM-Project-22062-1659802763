@@ -1,0 +1,40 @@
+html {
+    font-family: cursive;
+    background: #f6f6f2;
+    color: #000000;
+}
+
+h3 {
+    text-align: center;
+    font-size: 14;
+}
+.btn{
+    display:inline-block ; 
+    margin: 50px;
+    background: #5bccf6;
+    border-radius: 5px;
+    padding: 10px 18px;
+    text-decoration: none;
+    color: rgb(22, 22, 22);
+    border: 1px solid transparent;
+    transition: all 0.4s ease;
+}
+.btn:hover{
+    background:rgb(68, 68, 68);
+    color: rgb(248, 248, 248);
+    border: 1px solid rgb(249, 245, 247);
+}
+table,
+td,
+th {
+    border: 2px solid #388087;
+}
+
+table {
+    width: 50%;
+
+}
+
+th {
+    text-align: left;
+}

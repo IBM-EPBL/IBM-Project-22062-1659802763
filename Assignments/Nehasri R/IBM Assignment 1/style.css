@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+html {
+    scroll-behavior: smooth; }
+  
+    *,
+::after,
+::before {
+    box-sizing: border-box
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.hero{
+    width: 100%;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: url(image1.jpg) center ;
+    background-size: cover;
+}
+nav{
+    width: 84%;
+    margin: auto;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo{
+    width: 150px;
+    cursor: pointer;
+}
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+}
+nav ul li a{
+    text-decoration: none;
+    color: #606163;
+}
+nav ul li a:hover{
+    color: blueviolet;
+}
+.btn{
+    background: blueviolet;
+    border-radius: 5px;
+    padding: 10px 18px;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    border: 1px solid transparent;
+    transition: all 0.4s ease;
+}
+.btn:hover{
+    background: transparent;
+    color: blueviolet;
+    border: 1px solid blueviolet;
+}
+.info{
+    margin-left: 8%;
+    margin-top: 10%;
+}
+.info h1{
+    font-size: 40px;
+    color: #444242;
+}
+.info h1 span{
+   color: blueviolet;
+}
+.info p{
+    color: #606163;
+    font-weight:500;
+    line-height: 22px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.social{
+    margin-left: 8%;
+    margin-top: 25px;
+}
+.social a{
+    font-size: 28px;
+    color: #606163;
+    margin-right: 20px;
+}
+.social a:hover{
+    color: blueviolet;
+}
+#edu{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing:content-box;
+    padding: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+    align-items: center;
+	
+}
+.edu-img{
+    width: 700px;
+    height: 700px;
+}
+.edu-img img{
+    margin-top: 100px;
+    margin-left: 100px;
+    padding-left: 100px;
+    width: 70%;
+    height: 70%;
+    object-fit:contain;
+}
+.edu-head h2{
+    color: blueviolet;
+    font-size: 40px;
+    margin: 0px;
+    letter-spacing: 1px;
+}
+.E-box-container{
+    margin-top: 30px;
+}
+.Edu-box{
+    display: flex;
+    margin: 25px 0px;
+}
+.e-box-text strong{
+    color: #444242;
+    margin: 0px;
+    font-size: 25px;
+}
+.e-box-text ul li{
+    color: #606163;
+    font-size: 15px;
+}
+.services-row{
+    margin: auto;
+    padding: auto;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.services-box{
+	flex-basis: 25%;
+	text-align: center;
+	box-shadow: 2px 3px 5px grey;
+	padding: 20px;
+	margin-top: 20px;
+}
+.services-box ul li{
+    display: block;
+    list-style: none;
+    margin: 10px 20px;
+}
+
+.services-box h2{
+    background-color:antiquewhite;
+    border-radius: 0.5cm;
+}
+
+.services-box:hover{
+	background: blueviolet;
+	color: white;
+	transition: 0.4s;
+}
+.services-box img{
+	width: 60%;
+}
+.skills-row{
+    box-sizing:content-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+    align-items: center;
+    flex-basis: 25%;
+	text-align: center;
+}
+.skills-left-col{
+	flex-basis: 50%;
+	text-align: justify;
+    padding: 60px 50px;
+    text-align: center;
+	color: blueviolet;
+	background-attachment: fixed;
+    font-size: 50px;
+    
+}
+.skills-right-col{
+	flex-basis: 50%;
+}
+.progress-div {
+    color: #606163;
+    text-align:center;
+}
+.cards{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.card{
+	flex-basis: 25%;
+	text-align: center;
+	box-shadow: 2px 3px 5px grey;
+	margin-bottom: 20%;
+    border-bottom: 8px solid blueviolet;
+    padding: 100px 50px;
+    
+}
+.card p{  
+    display: block;
+    list-style: none;
+    margin: 10px 20px;
+}
+
+.contact{
+    box-sizing: border-box;
+    background-color: blueviolet;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	padding: 50px;
+    align-items: center;
+    flex-basis: 25%;
+    color: black;
+    margin-top: -150px;
+}
+.Profile a{
+    color: black;
+}
+.Profile a:hover{
+    color: red;
+}
+.my-2 button:hover{
+    color: black;
+}

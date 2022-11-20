@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='style.css')}}">
+  <script src="https://use.typekit.net/lkh0ago.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <main ontouchstart class="with-hover">
+    <aside>
+      <div></div>
+      
+      <div>
+        <p id="intro-signup" class="active"><strong>Expense tracker</strong> is even better with&nbsp;an&nbsp;account.</p>
+        <p id="intro-login">Welcome back to<br/><strong>expense tracker</strong>!</p>
+      </div>
+    </aside>
+    <section>
+      <h1>
+        <a id="link-signup" class="active">Sign Up</a>
+        <a id="link-login" href="login.html">Log In</a>
+      </h1>
+      <form id="form-signup" class="active">
+        <div>
+          <fieldset>
+            <div>
+              <label for="name">Name</label>
+              <input id="name" type="text"/>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" type="email"/>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div>
+              <label for="password">Password</label>
+              <input id="password" type="password" placeholder="••••••••"/>
+            </div>
+          </fieldset>
+        </div>
+  
+          <ul>
+            <li>
+              <button class="fb">Connect with Facebook</button>
+            </li>
+            <li>
+              <button class="tw">Connect with Twitter</button>
+            </li>
+          </ul>
+  
+          <input type="submit" value="Sign Up"/>
+        </form>
+        
+      </section>
+  
+  </main>
+</body>
+
+</html>

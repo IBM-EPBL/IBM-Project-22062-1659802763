@@ -1,5 +1,0 @@
-flask
-ibm_db
-docker
-kubernetes
-sendgrid

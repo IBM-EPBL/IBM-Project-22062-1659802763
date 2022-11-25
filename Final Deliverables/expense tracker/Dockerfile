@@ -1,12 +1,12 @@
 FROM python
 
-WORKDIR /python-expense
+WORKDIR /project23362
 
-COPY requirements.txt requirements.txt
+COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 5000
 
 CMD ["python", "-m" , "flask", "run", "--host=0.0.0.0"]

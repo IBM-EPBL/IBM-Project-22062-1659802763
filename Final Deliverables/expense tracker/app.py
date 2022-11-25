@@ -135,40 +135,13 @@ def addexpense():
         expense1 = ibm_db.fetch_tuple(stmt1)
     total = 0
     for x in list2:
-        total+= x[3]
+        total=total+int(x[3])
 
     sql2 = "SELECT explimit FROM LIMITS  DESC LIMIT 1"
     stmt2 = ibm_db.prepare(conn, sql2)
     ibm_db.execute(stmt2)
     limit=ibm_db.fetch_tuple(stmt2)
 
-    if(total>limit[0]):
-        
-        
-        mail_from = '19i304@psgtech.ac.in'
-        mail_to = session['email']
-
-        msg = MIMEMultipart()
-        msg['From'] = mail_from
-        msg['To'] = mail_to
-        msg['Subject'] = 'Expense Alert Limit'
-        mail_body = """
-        Dear User, You have exceeded the specified monthly expense Limit!!!!
-
-        """
-        msg.attach(MIMEText(mail_body))
-
-        try:
-            server = smtplib.SMTP_SSL('smtp.sendgrid.net', 465)
-            server.ehlo()
-            server.login('apikey', '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')
-            server.sendmail(mail_from, mail_to, msg.as_string())
-            server.close()
-            print("mail sent")
-        except:
-            print("issue")
-
-    
     return redirect("/display")
 
 
@@ -196,58 +169,29 @@ def display():
     t_rent=0
     t_EMI=0
     t_other=0
- 
-     
+
     for x in list1:
-        total += x[4]
-        if x[6] == "food":
-            t_food += x[4]    
-        elif x[6] == "entertainment":
-            t_entertainment  += x[4]
-        elif x[6] == "business":
-            t_business  += x[4]
-        elif x[6] == "rent":
-            t_rent  += x[4]
-        elif x[6] == "EMI":
-            t_EMI  += x[4]
-        elif x[6] == "other":
-            t_other  += x[4]
-    
+        total =total+int(x[3])
+        if x[4] == "food":
+            t_food =t_food+ int( x[3] )   
+        elif x[4] == "entertainment":
+            t_entertainment =t_entertainment+ int( x[3] )  
+        elif x[4] == "business":
+            t_business =t_business+ int( x[3] )  
+        elif x[4] == "rent":
+            t_rent  =t_rent+ int( x[3] )  
+        elif x[4] == "EMI":
+            t_EMI  =t_EMI+ int( x[3] )  
+        elif x[4] == "other":
+            t_other  =t_other+ int( x[3] )  
 
-    
 
-    
-    return render_template('display.html' ,expense = list1,total = total ,
-                           t_food = t_food,t_entertainment =  t_entertainment,
-                           t_business = t_business,  t_rent =  t_rent, 
-                           t_EMI =  t_EMI,  t_other =  t_other)
+
+    return render_template('display.html' ,expense = list1, total = total ,
+                            t_food = t_food, t_entertainment =  t_entertainment,
+                            t_business = t_business, t_rent =  t_rent, t_EMI =  t_EMI,  t_other =  t_other)
                           
-
-
-@app.route('/update', methods = ['POST'])
-def update(id):
-  if request.method == 'POST' :
-   
-      date = request.form['date']
-      title = request.form['title']
-      amount = request.form['amount']
-      category = request.form['category']
-      userid= request.form['userid']
-    
-      
-
-      sql = "UPDATE expenses SET date =? , title =? , amount =?, category =? WHERE expenses.userid =? "
-      stmt = ibm_db.prepare(conn, sql)
-      ibm_db.bind_param(stmt,1,date)
-      ibm_db.bind_param(stmt,2,title)
-      ibm_db.bind_param(stmt,3,amount)
-      ibm_db.bind_param(stmt,4,category)
-      ibm_db.bind_param(stmt,5,userid)
-      ibm_db.execute(stmt)
-
-      print('successfully updated')
-      return redirect("/display")
-     
+ 
  #limit
 @app.route("/limit" )
 def limit():
@@ -282,204 +226,6 @@ def limitn():
 
 #REPORT
 
-@app.route("/today")
-def today():
-      
-      sql = "SELECT * FROM expenses1  WHERE date = DATE(NOW())"
-      stmt = ibm_db.prepare(conn, sql)
-      ibm_db.execute(stmt)
-      list2=[]
-      texpense=ibm_db.fetch_tuple(stmt)
-      print(texpense)
-      
-      
-
-      sql = "SELECT * FROM EXPENSES1 WHERE DATE(date) = DATE(NOW())"
-      stmt = ibm_db.prepare(conn, sql)
-      ibm_db.execute(stmt)
-      list1=[]
-      expense = ibm_db.fetch_tuple(stmt)
-      while(expense):
-        list1.append(expense)
-        expense = ibm_db.fetch_tuple(stmt)  
-  
-      total=0
-      t_food=0
-      t_entertainment=0
-      t_business=0
-      t_rent=0
-      t_EMI=0
-      t_other=0
- 
-     
-      for x in list1:
-          total += x[4]
-          if x[6] == "food":
-              t_food += x[4]
-            
-          elif x[6] == "entertainment":
-              t_entertainment  += x[4]
-        
-          elif x[6] == "business":
-              t_business  += x[4]
-          elif x[6] == "rent":
-              t_rent  += x[4]
-           
-          elif x[6] == "EMI":
-              t_EMI  += x[4]
-         
-          elif x[6] == "other":
-              t_other  += x[4]
-            
-      
-
-
-     
-      return render_template("today.html", texpense = list1, expense = expense,  total = total ,
-                           t_food = t_food,t_entertainment =  t_entertainment,
-                           t_business = t_business,  t_rent =  t_rent, 
-                           t_EMI =  t_EMI,  t_other =  t_other )
-     
-
-@app.route("/month")
-def month():
-      
-
-      sql = "SELECT MONTHNAME(DATE),SUM(AMOUNT) FROM EXPENSES1 GROUP BY MONTHNAME(DATE)"
-      stmt = ibm_db.prepare(conn, sql)
-      ibm_db.execute(stmt)
-      list2=[]
-      texpense = ibm_db.fetch_tuple(stmt)
-      while(texpense):
-        list2.append(texpense)
-        texpense = ibm_db.fetch_tuple(stmt)
-      print(list2)
-      
-      
-
-      sql = "SELECT * FROM EXPENSES1 WHERE MONTH(date)=MONTH(DATE(NOW()))"
-      stmt = ibm_db.prepare(conn, sql)
-      ibm_db.execute(stmt)
-      list1=[]
-      expense = ibm_db.fetch_tuple(stmt)
-      while(expense):
-        list1.append(expense)
-        expense = ibm_db.fetch_tuple(stmt)
-  
-      total=0
-      t_food=0
-      t_entertainment=0
-      t_business=0
-      t_rent=0
-      t_EMI=0
-      t_other=0
- 
-     
-      for x in list1:
-          total += x[4]
-          if x[6] == "food":
-              t_food += x[4]
-            
-          elif x[6] == "entertainment":
-              t_entertainment  += x[4]
-        
-          elif x[6] == "business":
-              t_business  += x[4]
-          elif x[6] == "rent":
-              t_rent  += x[4]
-           
-          elif x[6] == "EMI":
-              t_EMI  += x[4]
-         
-          elif x[6] == "other":
-              t_other  += x[4]
-            
-      print(total)
-        
-      print(t_food)
-      print(t_entertainment)
-      print(t_business)
-      print(t_rent)
-      print(t_EMI)
-      print(t_other)
-
-
-     
-      return render_template("month.html", texpense = list2, expense = expense,  total = total ,
-                           t_food = t_food,t_entertainment =  t_entertainment,
-                           t_business = t_business,  t_rent =  t_rent, 
-                           t_EMI =  t_EMI,  t_other =  t_other )
-         
-@app.route("/year")
-def year():
-      
-      
-      sql = "SELECT YEAR(DATE),SUM(AMOUNT) FROM EXPENSES1 GROUP BY YEAR(DATE)"
-      stmt = ibm_db.prepare(conn, sql)
-      ibm_db.execute(stmt)
-      list2=[]
-      texpense = ibm_db.fetch_tuple(stmt)
-      while(texpense):
-        list2.append(texpense)
-        texpense = ibm_db.fetch_tuple(stmt)
-      print(list2)
-
-
-      
-
-      sql = "SELECT * FROM EXPENSES1 WHERE YEAR(date)=YEAR(DATE(NOW()))"
-      stmt = ibm_db.prepare(conn, sql)
-      ibm_db.execute(stmt)
-      list1=[]
-      expense = ibm_db.fetch_tuple(stmt)
-      while(expense):
-        list1.append(expense)
-        expense = ibm_db.fetch_tuple(stmt)
-  
-      total=0
-      t_food=0
-      t_entertainment=0
-      t_business=0
-      t_rent=0
-      t_EMI=0
-      t_other=0
- 
-     
-      for x in list1:
-          total += x[4]
-          if x[6] == "food":
-              t_food += x[4]
-            
-          elif x[6] == "entertainment":
-              t_entertainment  += x[4]
-        
-          elif x[6] == "business":
-              t_business  += x[4]
-          elif x[6] == "rent":
-              t_rent  += x[4]
-           
-          elif x[6] == "EMI":
-              t_EMI  += x[4]
-         
-          elif x[6] == "other":
-              t_other  += x[4]
-            
-      print(total)
-        
-      print(t_food)
-      print(t_entertainment)
-      print(t_business)
-      print(t_rent)
-      print(t_EMI)
-      print(t_other)
-
-
-     
-      return render_template("year.html", texpense = list2, expense = expense,  total = total ,
-                           t_food = t_food,t_entertainment =  t_entertainment,
-                           t_business = t_business,  t_rent =  t_rent, 
-                           t_EMI =  t_EMI,  t_other =  t_other )
-
 #log-out
 
 @app.route('/logout')
@@ -493,4 +239,4 @@ def logout():
              
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=5000,debug=True)
